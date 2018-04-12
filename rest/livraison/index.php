@@ -1,4 +1,21 @@
 <?php
+/*
+	Projet:			Eat@School - Projet réalisé dans le cadre du module 306 - Réaliser un petit projet informatique
+	
+	Page: 			index.php
+	Description: 	Vérifie si un restaurant donné accepte les livraisons
+	
+	Auteur:			Florent Beney, 
+					Clément Christensen, 
+					Anthony Chevrolet, 
+					Yannis Perrin, 
+					Gael Mariot, 
+					Aïssa Bovet, 
+					Constantin Herrmann, 
+					Jamal Albadri
+*/
+
+// Require du PDO
 require "../pdo.php";
 
 // required headers
@@ -8,6 +25,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+// Retourne le champ 'livraisonRestaurant' qui permet de savoir si un restaurant livre, en Json
 function getLivraison($id)
 {
     $request = "SELECT `livraisonRestaurant` FROM `Restaurant` WHERE `idRestaurant` = :id";

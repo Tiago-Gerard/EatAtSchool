@@ -1,9 +1,36 @@
 <?php
+/*
+	Projet:			Eat@School - Projet réalisé dans le cadre du module 306 - Réaliser un petit projet informatique
+	
+	Page: 			create.php
+	Description: 	Ajoute un restaurant dans la base de données
+	
+	Auteur:			Florent Beney, 
+					Clément Christensen, 
+					Anthony Chevrolet, 
+					Yannis Perrin, 
+					Gael Mariot, 
+					Aïssa Bovet, 
+					Constantin Herrmann, 
+					Jamal Albadri
+*/
+
+// Require du PDO
 require "../pdo.php";
 
 // required headers
 header("Access-Control-Allow-Methods: POST");
 
+/*
+	Fonction pour ajouter un Restaurant
+	
+	Nom Restaurant:						Le nom du restaurant
+	Latitude Restaurant:				La latitude du restaurant
+	Longitude Restaurant:				La longitude du restaurant
+	Site Web Restaurant:				L'adresse du site web du restaurant
+	Livraison Restaurant:				Si le restaurant livre ou pas
+	Condition Livraison Restaurant:		Les conditions de la livraison du restaurant
+*/	
 function createRestaurant($nom ,$lon,$lat,$site,$livraison,$condition)
 {
   $flagOk = true;

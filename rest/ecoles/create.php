@@ -1,7 +1,30 @@
 <?php
+/*
+	Projet:			Eat@School - Projet réalisé dans le cadre du module 306 - Réaliser un petit projet informatique
+	
+	Page: 			create.php
+	Description: 	Ajoute une école dans la base de données
+	
+	Auteur:			Florent Beney, 
+					Clément Christensen, 
+					Anthony Chevrolet, 
+					Yannis Perrin, 
+					Gael Mariot, 
+					Aïssa Bovet, 
+					Constantin Herrmann, 
+					Jamal Albadri
+*/
 
+// Require du PDO
 require "../pdo.php";
 
+/*
+	Fonction pour ajouter une école
+	
+	Nom: 			Nom de l'école
+	Lon:			Longitude de l'école
+	Lat:			Latitude de l'école
+*/	
 function createEcole($nom, $lon, $lat) {
     $flagOk = true;
     if(empty($nom) || empty($lon)||empty($lat)){

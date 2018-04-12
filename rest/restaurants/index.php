@@ -1,5 +1,34 @@
 <?php
+/*
+	Projet:			Eat@School - Projet réalisé dans le cadre du module 306 - Réaliser un petit projet informatique
+	
+	Page: 			index.php
+	Description: 	Retourne tous les restaurants enregistrés dans la base de données
+	
+	Auteur:			Florent Beney, 
+					Clément Christensen, 
+					Anthony Chevrolet, 
+					Yannis Perrin, 
+					Gael Mariot, 
+					Aïssa Bovet, 
+					Constantin Herrmann, 
+					Jamal Albadri
+*/
+
+// Require du PDO
 require "../pdo.php";
+
+/*
+	Classe pour modéliser un Restaurant 
+	
+	idRestaurant: 						L'id du restaurant
+	Nom Restaurant:						Le nom du restaurant
+	Latitude Restaurant:				La latitude du restaurant
+	Longitude Restaurant:				La longitude du restaurant
+	Site Web Restaurant:				L'adresse du site web du restaurant
+	Livraison Restaurant:				Si le restaurant livre ou pas
+	Condition Livraison Restaurant:		Les conditions de la livraison du restaurant
+*/	
 class Restaurant {
 	public $idRestaurant;
 	public $nomRestaurant;
@@ -9,14 +38,9 @@ class Restaurant {
 	public	$livraisonRestaurant;
 	public	$conditionLivraisonRestaurant;
 }
+
+// Retourne tous les restaurants en Json
 function getRestaurants(){
-    $db = getDB();
-    $request = $db->prepare("SELECT * FROM `Restaurant`");
-    $request->execute();
-    $data = $request->fetchAll(PDO::FETCH_ASSOC);
-    return json_encode($data,JSON_FORCE_OBJECT);
-}
-function getRestaurantsObj(){
     $db = getDB();
     $request = $db->prepare("SELECT * FROM `Restaurant`");
     $request->execute();
@@ -36,4 +60,4 @@ function getRestaurantsObj(){
     return json_encode($array);
 }
 
-echo getRestaurantsObj();
+echo getRestaurants();

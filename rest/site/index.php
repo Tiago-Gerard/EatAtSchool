@@ -1,4 +1,21 @@
 <?php
+/*
+	Projet:			Eat@School - Projet réalisé dans le cadre du module 306 - Réaliser un petit projet informatique
+	
+	Page: 			index.php
+	Description: 	Retourne le site d'un restaurant donné
+	
+	Auteur:			Florent Beney, 
+					Clément Christensen, 
+					Anthony Chevrolet, 
+					Yannis Perrin, 
+					Gael Mariot, 
+					Aïssa Bovet, 
+					Constantin Herrmann, 
+					Jamal Albadri
+*/
+
+// Require du PDO
 require "../pdo.php";
 
 // required headers
@@ -8,6 +25,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
+// Retourne le site d'un restaurant en fonction de l'id du restaurant, en Json
 function getSite($id)
 {
     $request = "SELECT `siteWebRestaurant` FROM `Restaurant` WHERE `idRestaurant` = :id";
