@@ -40,7 +40,7 @@ public class DbManager {
      */
     public static ArrayList<School> getSchools() {
         //Some url endpoint that you may have
-        String myUrl = "http://10.134.98.158/rest/ecoles";
+        String myUrl = "https://blueflame-studio.com/services/rest/ecoles";
         //String to place our result in
         JsonReader reader;
 
@@ -70,7 +70,7 @@ public class DbManager {
      */
     public static ArrayList<Restaurant> getRestaurant() {
         //Some url endpoint that you may have
-        String myUrl = "http://10.134.98.158/rest/restaurants";
+        String myUrl = "https://blueflame-studio.com/services/rest/restaurants";
         //String to place our result in
         JsonReader reader;
 
