@@ -2,9 +2,12 @@ package cfpt.com.eatatschool.presentation;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -18,7 +21,9 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.LinkedTransferQueue;
 
 import cfpt.com.eatatschool.R;
@@ -34,6 +39,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private double rayonCercle = 1000;      // Rayon de la zone de recherche
     private ArrayList<Restaurant> listeRestaurant;      // Liste des restaurants à proximité
     private School ecoleChoisie; // Ecole à partir de laquelle s'éffectue la recherche
+    private Geocoder g;
+    private Address address;
 
     /**
      * Création de l'activity
@@ -47,6 +54,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // Récupération du nom de l'école choisie
         Intent intent = getIntent();
         String nomEcole = intent.getStringExtra("nomEcole");
+        g = new Geocoder(this);
+        try {
+            List<Address> items = g.getFromLocationName("Rue des charmilles", 1);
+            address = items.get(0);
+            address.getLatitude();
+            address.getLongitude();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //
         ecoleChoisie = findSchool(nomEcole);
@@ -57,6 +73,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    public void OnClickAddRestaurant(View v){
+        Intent i = new Intent(MapActivity.this, AddRestaurant.class);
+        startActivity(i);
     }
 
 
@@ -92,6 +113,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Ajoute un marker à l'emplacement de l'école choisie (centre du cercle)
         mMap.addMarker(new MarkerOptions().position(centreCercle).title(ecoleChoisie.GetNom()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("TEST").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         // Centre la caméra sur l'école
         mMap.moveCamera(CameraUpdateFactory.newLatLng(centreCercle));
@@ -99,10 +121,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mMap.animateCamera(zoom);
 
         // Affiche un marker pour chaque restaurant à proximité
-        for (Restaurant rs: getRestaurantsInProximity()) {
+        /*for (Restaurant rs: getRestaurantsInProximity()) {
             LatLng posResto = new LatLng(rs.GetLatitude(), rs.GetLongitude());
             mMap.addMarker(new MarkerOptions().position(posResto).title(rs.GetNom()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        }
+        }*/
     }
 
     /**
@@ -127,7 +149,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      * Cherche les restaurants a proximité de l'école choisie
      * @return une ArrayList de restaurants dont la distance est inférieure a 1KM de l'école choisie
      */
-    public ArrayList<Restaurant> getRestaurantsInProximity(){
+    /*public ArrayList<Restaurant> getRestaurantsInProximity(){
         // Ajoute les valeurs retournées de la BDD dans une ArrayList de restaurants
         ArrayList<Restaurant> allRestaurants = DbManager.getRestaurant();
         // Instencie une nouvelle liste de restaurant vide
@@ -140,7 +162,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
         return restoDisponibles;
-    }
+    }*/
 
     //Conversion des degrés en radian
     public double convertRad(double degre){

@@ -10,30 +10,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tbxNomRestaurant"
-        android:layout_marginTop="42dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="20dp"
         android:text="Nom du restaurant"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tbxNomRestaurant"
-        android:layout_below="@+id/tbxNomRestaurant"
-        android:layout_marginTop="18dp"
-        android:text="Adresse du restaurant"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/chbLivraison"
-        android:layout_below="@+id/chbLivraison"
-        android:layout_marginTop="25dp"
-        android:text="Condition de livraison"
         android:textSize="20sp" />
 
     <EditText
@@ -46,45 +27,45 @@
         android:inputType="text|textPersonName"
         android:textSize="15sp" />
 
-    <EditText
-        android:id="@+id/tbxAdresseRestaurant"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_below="@+id/textView2"
-        android:ems="10"
-        android:inputType="text|textPersonName"
-        android:textSize="15sp" />
-
-    <CheckBox
-        android:id="@+id/chbLivraison"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tbxAdresseRestaurant"
-        android:layout_below="@+id/tbxAdresseRestaurant"
-        android:layout_marginTop="15dp"
-        android:text="Livraison" />
-
-    <EditText
-        android:id="@+id/tbxConditionLivraison"
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView4"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:textSize="15sp" />
-
     <Button
         android:id="@+id/btnAjouterRestaurant"
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/tbxConditionLivraison"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
+        android:layout_marginBottom="50dp"
         android:background="#59376d"
         android:text="Ajouter"
         android:textColor="@android:color/white"
         android:textSize="12sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="113dp"
+        android:text="Rue"
+        android:textSize="20sp"/>
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/textView3"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
 
 </RelativeLayout>

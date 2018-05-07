@@ -64,76 +64,16 @@ public class DbManager {
         }
         return null;
     }
-    /**
-     * Récupère les restaurant disponible dans la base de données
-     * @return retourne les restaurant sous forme de liste de restaurant
-     */
-    public static ArrayList<Restaurant> getRestaurant() {
-        //Some url endpoint that you may have
-        String myUrl = "https://blueflame-studio.com/services/rest/restaurants";
-        //String to place our result in
-        JsonReader reader;
 
-        //Instantiate new instance of our class
-        HttpGetRequest getRequest = new HttpGetRequest();
-        //Perform the doInBackground method, passing in our url
-        try {
-            reader = getRequest.execute(myUrl).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            reader = new JsonReader(null);
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-            reader = new JsonReader(null);
-        }
-        try {
-            return readRestArray(reader);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     /**
      * Fait une requette http sur le service rest en get
      */
     public static class HttpGetRequest extends AsyncTask<String, Void, JsonReader> {
-        public static final String REQUEST_METHOD = "GET";
-        public static final int READ_TIMEOUT = 15000;
-        public static final int CONNECTION_TIMEOUT = 15000;
 
         @Override
         protected JsonReader doInBackground(String... params) {
-            String stringUrl = params[0];
-            String result;
-            String inputLine;
-            try {
-                //Create a URL object holding our url
-                URL myUrl = new URL(stringUrl);
-
-                //Create a connection
-                HttpURLConnection connection = (HttpURLConnection) myUrl.openConnection();
-
-                //Set methods and timeouts
-                connection.setRequestMethod(REQUEST_METHOD);
-                connection.setReadTimeout(READ_TIMEOUT);
-                connection.setConnectTimeout(CONNECTION_TIMEOUT);
-
-                //Connect to our url
-                connection.connect();
-
-                //Create a new InputStreamReader
-                InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());
-
-                //Create a new buffered reader and String Builder
-                BufferedReader reader = new BufferedReader(streamReader);
-                JsonReader jsReader = new JsonReader(reader);
-                return jsReader;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
+            return null;
         }
 
         protected void onPostExecute(JsonReader result) {
