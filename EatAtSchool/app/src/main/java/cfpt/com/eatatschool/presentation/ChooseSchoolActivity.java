@@ -25,6 +25,8 @@ public class ChooseSchoolActivity extends AppCompatActivity implements ServiceEc
     // Liste déroulante contenet les écoles
     Spinner listeEcoles;
 
+    List<SchoolSerializable> lstecoles;
+
     /**
      * Retourne sur l'activity précédente
      * @return toujours true
@@ -43,7 +45,7 @@ public class ChooseSchoolActivity extends AppCompatActivity implements ServiceEc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_school);
-
+        lstecoles = new ArrayList<>();
         // Activation de la flèche de retour sur la barre de navigation
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -61,8 +63,13 @@ public class ChooseSchoolActivity extends AppCompatActivity implements ServiceEc
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ChooseSchoolActivity.this, MapActivity.class);
-                intent.putExtra("nomEcole", listeEcoles.getSelectedItem().toString());
-                startActivity(intent);
+                for (SchoolSerializable s: lstecoles) {
+                    if (listeEcoles.getSelectedItem().toString().equals(s.getNom())){
+                        intent.putExtra("ecole", s);
+                        startActivity(intent);
+                    }
+                }
+
             }
         });
     }
@@ -88,6 +95,7 @@ public class ChooseSchoolActivity extends AppCompatActivity implements ServiceEc
     @Override
     public void onResponse(@Nullable List<SchoolSerializable> ecoles) {
         ArrayList<String> schoolNames = new ArrayList<>();
+        lstecoles = ecoles;
         for (SchoolSerializable s: ecoles) {
             schoolNames.add(s.getNom());
         }

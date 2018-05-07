@@ -19,9 +19,9 @@ public class ServiceEcole {
     public static void getSchool(Callbacks callback){
         final WeakReference<Callbacks> callbacksWeakReference = new WeakReference<Callbacks>(callback);
 
-        SchoolService schoolService = SchoolService.retrofitEcoles.create(SchoolService.class);
+        AccesService accesService = AccesService.retrofitEcoles.create(AccesService.class);
 
-        retrofit2.Call<List<SchoolSerializable>> call = schoolService.getEcoles();
+        retrofit2.Call<List<SchoolSerializable>> call = accesService.getEcoles();
 
         call.enqueue(new Callback<List<SchoolSerializable>>() {
             @Override

@@ -13,10 +13,10 @@ public class RestaurantSerializable {
     private String nomRestaurant;
     @SerializedName("latitudeRestaurant")
     @Expose
-    private String latitudeRestaurant;
+    private Double latitudeRestaurant;
     @SerializedName("longitudeRestaurant")
     @Expose
-    private String longitudeRestaurant;
+    private Double longitudeRestaurant;
     @SerializedName("siteWebRestaurant")
     @Expose
     private String siteWebRestaurant;
@@ -43,19 +43,19 @@ public class RestaurantSerializable {
         this.nomRestaurant = nomRestaurant;
     }
 
-    public String getLatitudeRestaurant() {
+    public Double getLatitudeRestaurant() {
         return latitudeRestaurant;
     }
 
-    public void setLatitudeRestaurant(String latitudeRestaurant) {
+    public void setLatitudeRestaurant(Double latitudeRestaurant) {
         this.latitudeRestaurant = latitudeRestaurant;
     }
 
-    public String getLongitudeRestaurant() {
+    public Double getLongitudeRestaurant() {
         return longitudeRestaurant;
     }
 
-    public void setLongitudeRestaurant(String longitudeRestaurant) {
+    public void setLongitudeRestaurant(Double longitudeRestaurant) {
         this.longitudeRestaurant = longitudeRestaurant;
     }
 

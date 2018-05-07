@@ -3,7 +3,11 @@ package cfpt.com.eatatschool.domaine;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SchoolSerializable {
+import java.io.Serializable;
+
+public class SchoolSerializable implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @SerializedName("id")
     @Expose
@@ -13,10 +17,10 @@ public class SchoolSerializable {
     private String nom;
     @SerializedName("lon")
     @Expose
-    private String lon;
+    private Double lon;
     @SerializedName("lat")
     @Expose
-    private String lat;
+    private Double lat;
 
     public String getId() {
         return id;
@@ -34,19 +38,19 @@ public class SchoolSerializable {
         this.nom = nom;
     }
 
-    public String getLon() {
+    public Double getLon() {
         return lon;
     }
 
-    public void setLon(String lon) {
+    public void setLon(Double lon) {
         this.lon = lon;
     }
 
-    public String getLat() {
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 

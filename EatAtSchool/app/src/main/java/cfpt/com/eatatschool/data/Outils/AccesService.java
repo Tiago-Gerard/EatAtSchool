@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface SchoolService {
+public interface AccesService {
     @GET("php/ecoles/")
     Call<List<SchoolSerializable>> getEcoles();
     Retrofit retrofitEcoles = new Retrofit.Builder()

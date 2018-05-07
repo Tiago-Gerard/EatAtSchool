@@ -4,18 +4,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
-import android.support.v4.app.FragmentActivity;
+import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -24,23 +23,23 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.LinkedTransferQueue;
 
 import cfpt.com.eatatschool.R;
-import cfpt.com.eatatschool.data.DbManager;
-import cfpt.com.eatatschool.domaine.Restaurant;
-import cfpt.com.eatatschool.domaine.School;
+import cfpt.com.eatatschool.data.Outils.ServiceRestaurant;
+import cfpt.com.eatatschool.domaine.RestaurantSerializable;
+import cfpt.com.eatatschool.domaine.SchoolSerializable;
 
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, ServiceRestaurant.Callbacks {
 
     // Variables de classe pour la carte
     private GoogleMap mMap;     // Carte
     private LatLng centreCercle;        // Point autour du quel sera éffectuée la recherche
     private double rayonCercle = 1000;      // Rayon de la zone de recherche
-    private ArrayList<Restaurant> listeRestaurant;      // Liste des restaurants à proximité
-    private School ecoleChoisie; // Ecole à partir de laquelle s'éffectue la recherche
+    private SchoolSerializable ecoleChoisie; // Ecole à partir de laquelle s'éffectue la recherche
     private Geocoder g;
     private Address address;
+    // Instencie une nouvelle liste de restaurant vide
+    private ArrayList<RestaurantSerializable> restoDisponibles;
 
     /**
      * Création de l'activity
@@ -53,7 +52,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Récupération du nom de l'école choisie
         Intent intent = getIntent();
-        String nomEcole = intent.getStringExtra("nomEcole");
+        SchoolSerializable ecole = (SchoolSerializable) intent.getSerializableExtra("ecole");
         g = new Geocoder(this);
         try {
             List<Address> items = g.getFromLocationName("Rue des charmilles", 1);
@@ -64,8 +63,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
+        restoDisponibles = new ArrayList<>();
+        executeHttpRequestWithRetrofit();
+
         //
-        ecoleChoisie = findSchool(nomEcole);
+        ecoleChoisie = ecole;
 
         // Activation de la flèche de retour sur la barre de navigation
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -97,13 +99,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // Instencie une nouvelle liste de restaurant vide
-        listeRestaurant = new ArrayList<>();
         // Assigne la carte à gérer
         mMap = googleMap;
 
         // Assigne les coordonnées au point central
-        centreCercle = new LatLng(ecoleChoisie.GetLatitude(), ecoleChoisie.GetLongitude());
+        centreCercle = new LatLng(ecoleChoisie.getLat(), ecoleChoisie.getLon());
 
         // Dessine un cercle autour de la zone de recherche
         mMap.addCircle(new CircleOptions()
@@ -112,57 +112,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 .strokeColor(Color.argb(200,0,0,0)));
 
         // Ajoute un marker à l'emplacement de l'école choisie (centre du cercle)
-        mMap.addMarker(new MarkerOptions().position(centreCercle).title(ecoleChoisie.GetNom()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+        mMap.addMarker(new MarkerOptions().position(centreCercle).title(ecoleChoisie.getNom()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         mMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("TEST").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         // Centre la caméra sur l'école
         mMap.moveCamera(CameraUpdateFactory.newLatLng(centreCercle));
         CameraUpdate zoom=CameraUpdateFactory.zoomTo(14);
         mMap.animateCamera(zoom);
-
-        // Affiche un marker pour chaque restaurant à proximité
-        /*for (Restaurant rs: getRestaurantsInProximity()) {
-            LatLng posResto = new LatLng(rs.GetLatitude(), rs.GetLongitude());
-            mMap.addMarker(new MarkerOptions().position(posResto).title(rs.GetNom()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        }*/
     }
 
-    /**
-     * Cherche l'école sélectionnée parmis celles présentes dans la BDD
-     * @param nomEcole Nom de l'école sélectionnée
-     * @return L'école (si elle existe sinon retourne NULL) sous forme de objet School
-     */
-    public School findSchool(String nomEcole){
-        // Ajoute les valeurs retournées de la BDD dans une ArrayList d'école
-        ArrayList<School> schools = DbManager.getSchools();
-        // Pour chaque école verifie si elle est présente dans la BDD
-        // si oui retourne l'objet School de l'école sélectionnée
-        for (School s: schools) {
-            if (s.GetNom().equals(nomEcole)){
-                return s;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Cherche les restaurants a proximité de l'école choisie
-     * @return une ArrayList de restaurants dont la distance est inférieure a 1KM de l'école choisie
-     */
-    /*public ArrayList<Restaurant> getRestaurantsInProximity(){
-        // Ajoute les valeurs retournées de la BDD dans une ArrayList de restaurants
-        ArrayList<Restaurant> allRestaurants = DbManager.getRestaurant();
-        // Instencie une nouvelle liste de restaurant vide
-        ArrayList<Restaurant> restoDisponibles = new ArrayList<>();
-        // Pour chaque restaurants verifie si il est dans la zone de recherche
-        // si oui l'ajoute dans l'ArrayList restoDisponibles
-        for (Restaurant resto: allRestaurants) {
-            if (Distance(resto.GetLatitude(), resto.GetLongitude(), ecoleChoisie.GetLatitude(), ecoleChoisie.GetLongitude()) <= rayonCercle){
-                restoDisponibles.add(resto);
-            }
-        }
-        return restoDisponibles;
-    }*/
 
     //Conversion des degrés en radian
     public double convertRad(double degre){
@@ -191,5 +149,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         // Calcul de la distance entre le restaurant et l'école
         double distance = rTerre * (Math.PI/2 - Math.asin( Math.sin(lat_school_rad) * Math.sin(lat_rest_rad) + Math.cos(long_school_rad - long_rest_rad) * Math.cos(lat_school_rad) * Math.cos(lat_rest_rad)));
         return distance;
+    }
+
+    private void executeHttpRequestWithRetrofit(){
+        ServiceRestaurant.getRestaurants(this);
+    }
+
+    @Override
+    public void onResponse(@Nullable List<RestaurantSerializable> restos) {
+
+        // Pour chaque restaurants verifie si il est dans la zone de recherche
+        // si oui l'ajoute dans l'ArrayList restoDisponibles
+        for (RestaurantSerializable resto: restos) {
+            if (Distance(resto.getLatitudeRestaurant(), resto.getLongitudeRestaurant(), ecoleChoisie.getLat(), ecoleChoisie.getLon()) <= rayonCercle){
+                restoDisponibles.add(resto);
+            }
+        }
+        // Affiche un marker pour chaque restaurant à proximité
+        for (RestaurantSerializable rs: restoDisponibles) {
+            LatLng posResto = new LatLng(rs.getLatitudeRestaurant(), rs.getLongitudeRestaurant());
+            mMap.addMarker(new MarkerOptions().position(posResto).title(rs.getNomRestaurant()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        }
+    }
+
+    @Override
+    public void onFailure() {
+        Log.e("FAIL ","Error");
     }
 }

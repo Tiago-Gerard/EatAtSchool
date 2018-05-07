@@ -2,11 +2,11 @@ package cfpt.com.eatatschool.data.Outils;
 
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
 import cfpt.com.eatatschool.domaine.RestaurantSerializable;
-import cfpt.com.eatatschool.domaine.SchoolSerializable;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -20,9 +20,9 @@ public class ServiceRestaurant {
     public static void getRestaurants(ServiceRestaurant.Callbacks callback){
         final WeakReference<ServiceRestaurant.Callbacks> callbacksWeakReference = new WeakReference<ServiceRestaurant.Callbacks>(callback);
 
-        SchoolService schoolService = SchoolService.retrofitRestaurants.create(SchoolService.class);
+        AccesService accesService = AccesService.retrofitRestaurants.create(AccesService.class);
 
-        retrofit2.Call<List<RestaurantSerializable>> call = schoolService.getRestaurants();
+        retrofit2.Call<List<RestaurantSerializable>> call = accesService.getRestaurants();
 
         call.enqueue(new Callback<List<RestaurantSerializable>>() {
             @Override

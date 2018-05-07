@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-import cfpt.com.eatatschool.domaine.Restaurant;
 import static cfpt.com.eatatschool.data.DbManager.readRestArray;
 
 public class RestaurantDAO implements HttpThreadAsync.Listeners<Restaurant> {
