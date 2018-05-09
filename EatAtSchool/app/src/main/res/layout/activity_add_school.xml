@@ -50,14 +50,14 @@
         android:id="@+id/btnAjouterRestaurant"
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:layout_below="@+id/tbxAdresseEcole"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="162dp"
         android:background="#59376d"
+        android:onClick="onClickButtonAdd"
         android:text="Ajouter"
         android:textColor="@android:color/white"
-        android:textSize="12sp"
-        android:onClick="onClickButtonAdd"/>
+        android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/myLoc"
@@ -68,5 +68,33 @@
         android:layout_marginEnd="16dp"
         android:onClick="onClickButtonLoc"
         app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+    <EditText
+        android:id="@+id/tbxNPA"
+        android:layout_width="249dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tbxNPA"
+        android:layout_alignStart="@+id/textView"
+        android:text="Localité, NPA"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="96dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>
