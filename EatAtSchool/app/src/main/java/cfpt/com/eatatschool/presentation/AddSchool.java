@@ -88,8 +88,6 @@ public class AddSchool extends AppCompatActivity implements ServiceAddEcole.Call
             }
         };
         runnable.run();
-
-
     }
 
     @Override

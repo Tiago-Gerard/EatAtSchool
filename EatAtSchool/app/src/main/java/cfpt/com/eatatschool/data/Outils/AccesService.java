@@ -38,4 +38,15 @@ public interface AccesService {
             .baseUrl("http://10.134.98.158/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+
+    @POST("php/restaurants/create.php")
+    @FormUrlEncoded
+    Call<RestaurantSerializable> createRestaurant(
+            @Field("nom") String nom,
+            @Field("lat") double lat,
+            @Field("lon") double lon);
+    Retrofit retrofitAddRestaurant = new Retrofit.Builder()
+            .baseUrl("http://10.134.98.158/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 }
