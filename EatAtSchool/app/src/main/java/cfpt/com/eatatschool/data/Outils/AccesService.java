@@ -7,7 +7,10 @@ import cfpt.com.eatatschool.domaine.SchoolSerializable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface AccesService {
@@ -25,4 +28,25 @@ public interface AccesService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
+    @POST("php/ecoles/create.php")
+    @FormUrlEncoded
+    Call<SchoolSerializable> createSchool(
+                        @Field("nom") String nom,
+                        @Field("lat") double lat,
+                        @Field("lon") double lon);
+    Retrofit retrofitAddSchool = new Retrofit.Builder()
+            .baseUrl("http://10.134.98.158/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    @POST("php/restaurants/create.php")
+    @FormUrlEncoded
+    Call<RestaurantSerializable> createRestaurant(
+            @Field("nom") String nom,
+            @Field("lat") double lat,
+            @Field("lon") double lon);
+    Retrofit retrofitAddRestaurant = new Retrofit.Builder()
+            .baseUrl("http://10.134.98.158/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
 }

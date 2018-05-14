@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ import cfpt.com.eatatschool.data.Outils.ServiceEcole;
 import cfpt.com.eatatschool.domaine.SchoolSerializable;
 
 public class ChooseSchoolActivity extends AppCompatActivity implements ServiceEcole.Callbacks{
+
+    TextView txtAddEcole;
 
     // Bouton "Recherche des restaurants
     Button findSchool;
@@ -54,9 +57,18 @@ public class ChooseSchoolActivity extends AppCompatActivity implements ServiceEc
         // Récupération des éléments de la vue
         findSchool = findViewById(R.id.btnChercher);
         listeEcoles = findViewById(R.id.spEcoles);
+        txtAddEcole = findViewById(R.id.lblNewEcole);
 
         // Charge les écoles dans la liste déroulante
         //loadSchool();
+
+        txtAddEcole.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ChooseSchoolActivity.this, AddSchool.class);
+                startActivity(i);
+            }
+        });
 
         // Déplacement sur l'activity "Map" lors du click avec le nom de l'école sélectionnée
         findSchool.setOnClickListener(new View.OnClickListener() {
