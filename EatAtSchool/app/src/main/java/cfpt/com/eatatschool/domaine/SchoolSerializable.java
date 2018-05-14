@@ -54,4 +54,10 @@ public class SchoolSerializable implements Serializable {
         this.lat = lat;
     }
 
+    public SchoolSerializable(String nom, double lati, double longi){
+        this.nom = nom;
+        this.lat = lati;
+        this.lon = longi;
+    }
+
 }
