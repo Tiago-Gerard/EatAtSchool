@@ -15,11 +15,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="18dp"
-        android:layout_marginEnd="18dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="22dp"
+        android:layout_marginStart="22dp"
         android:clickable="true"
+        android:onClick="OnClickAddRestaurant"
         app:backgroundTint="@color/colorPrimaryDark"
-        app:srcCompat="@mipmap/ic_plus"
-        android:onClick="OnClickAddRestaurant"/>
+        app:srcCompat="@mipmap/ic_plus" />
 </RelativeLayout>
