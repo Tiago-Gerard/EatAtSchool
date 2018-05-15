@@ -113,7 +113,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         // Ajoute un marker à l'emplacement de l'école choisie (centre du cercle)
         mMap.addMarker(new MarkerOptions().position(centreCercle).title(ecoleChoisie.getNom()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(address.getLatitude(), address.getLongitude())).title("TEST").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         // Centre la caméra sur l'école
         mMap.moveCamera(CameraUpdateFactory.newLatLng(centreCercle));

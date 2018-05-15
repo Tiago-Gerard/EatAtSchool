@@ -24,7 +24,10 @@ public class ServiceAddRestaurant {
         call.enqueue(new Callback<RestaurantSerializable>() {
             @Override
             public void onResponse(retrofit2.Call<RestaurantSerializable> call, Response<RestaurantSerializable> response) {
-                if (callbacksWeakReference.get() != null){
+                if (response.code() == 401 || response.code() == 500){
+                    onFailure(call, new Throwable());
+                }
+                else if (callbacksWeakReference.get() != null){
                     callbacksWeakReference.get().onResponse(response.body());
                 }
             }

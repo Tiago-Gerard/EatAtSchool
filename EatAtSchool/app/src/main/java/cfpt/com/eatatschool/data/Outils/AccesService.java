@@ -21,8 +21,6 @@ import retrofit2.http.Path;
 
 public interface AccesService {
 
-
-    //TODO : AUTH à régler
     OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
