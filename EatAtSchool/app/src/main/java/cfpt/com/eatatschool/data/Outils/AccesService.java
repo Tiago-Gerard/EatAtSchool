@@ -1,12 +1,16 @@
 package cfpt.com.eatatschool.data.Outils;
 
+<<<<<<< HEAD
 import android.content.SharedPreferences;
 
+=======
+>>>>>>> AddSchoolAndRestaurant
 import java.io.IOException;
 import java.util.List;
 
 import cfpt.com.eatatschool.domaine.RestaurantSerializable;
 import cfpt.com.eatatschool.domaine.SchoolSerializable;
+<<<<<<< HEAD
 import cfpt.com.eatatschool.domaine.UserSerializable;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
@@ -16,6 +20,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+=======
+import okhttp3.Credentials;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+>>>>>>> AddSchoolAndRestaurant
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,7 +46,11 @@ public interface AccesService {
             Request originalRequest = chain.request();
 
             Request.Builder builder = originalRequest.newBuilder().header("Authorization",
+<<<<<<< HEAD
                     Credentials.basic("test@gmail.com", "Super"));
+=======
+                    Credentials.basic("aUsername", "aPassword"));
+>>>>>>> AddSchoolAndRestaurant
 
             Request newRequest = builder.build();
             return chain.proceed(newRequest);
@@ -76,6 +91,7 @@ public interface AccesService {
     Retrofit retrofitAddRestaurant = new Retrofit.Builder()
             .baseUrl("http://10.134.98.158/")
             .client(okHttpClient)
+<<<<<<< HEAD
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
@@ -95,6 +111,8 @@ public interface AccesService {
     Retrofit retrofitUploadImage = new Retrofit.Builder()
             .baseUrl("http://10.134.98.158/")
             .client(okHttpClient)
+=======
+>>>>>>> AddSchoolAndRestaurant
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }
