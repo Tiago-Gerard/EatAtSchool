@@ -40,6 +40,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.request.RequestOptions;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -81,6 +85,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mPasswordView = (EditText) findViewById(R.id.password);
         img = findViewById(R.id.imageView2);
+        Glide.with(this).load("http://10.134.98.158/php/upload/images/0.42027500-1526479713IMG-20170524-150530.jpg").apply(RequestOptions.circleCropTransform()).into(img);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -303,6 +308,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         ed.putString("email", user.getEmailUser());
         ed.putString("Password", user.getPasswordUser());
         ed.commit();
+        Glide.with(this).load("http://10.134.98.158/php/upload/images/0.42027500-1526479713IMG-20170524-150530.jpg").apply(RequestOptions.circleCropTransform()).into(img);
     }
 
     @Override

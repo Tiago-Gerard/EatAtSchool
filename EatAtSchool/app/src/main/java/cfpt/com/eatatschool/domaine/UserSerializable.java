@@ -17,6 +17,9 @@ public class UserSerializable {
     @SerializedName("passwordUser")
     @Expose
     private String passwordUser;
+    @SerializedName("imageUser")
+    @Expose
+    private String imageUser;
 
     public String getIdUser() {
         return idUser;
@@ -48,6 +51,14 @@ public class UserSerializable {
 
     public void setPasswordUser(String passwordUser) {
         this.passwordUser = passwordUser;
+    }
+
+    public String getImageUser() {
+        return imageUser;
+    }
+
+    public void setImageUser(String imageUser) {
+        this.imageUser = imageUser;
     }
 
 }

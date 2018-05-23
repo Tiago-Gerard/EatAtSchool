@@ -38,14 +38,14 @@ public interface AccesService {
         }
     }).build();
 
-    @GET("php/ecoles/")
+    @GET("php/ecoles/index.php")
     Call<List<SchoolSerializable>> getEcoles();
     Retrofit retrofitEcoles = new Retrofit.Builder()
                 .baseUrl("http://10.134.98.158/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-    @GET("php/restaurants/")
+    @GET("php/restaurants/index.php")
     Call<List<RestaurantSerializable>> getRestaurants();
     Retrofit retrofitRestaurants = new Retrofit.Builder()
             .baseUrl("http://10.134.98.158/")
@@ -75,7 +75,7 @@ public interface AccesService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 
-    @GET("php/user/")
+    @GET("php/user/index.php")
     Call<UserSerializable> getUser();
     Retrofit retrofitUser = new Retrofit.Builder()
             .baseUrl("http://10.134.98.158/")
@@ -87,7 +87,8 @@ public interface AccesService {
     @POST("php/upload/upload.php")
     Call<ResponseBody> postImage(
             @Part MultipartBody.Part image,
-            @Part("name") RequestBody name);
+            @Part("name") RequestBody name,
+            @Part("idUser") int idUser);
     Retrofit retrofitUploadImage = new Retrofit.Builder()
             .baseUrl("http://10.134.98.158/")
             .client(okHttpClient)

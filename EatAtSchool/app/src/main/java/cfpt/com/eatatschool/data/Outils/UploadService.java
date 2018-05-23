@@ -36,13 +36,13 @@ public class UploadService {
 
         AccesService accesService = AccesService.retrofitUploadImage.create(AccesService.class);
 
-        retrofit2.Call<okhttp3.ResponseBody> call = accesService.postImage(body, name);
+        retrofit2.Call<okhttp3.ResponseBody> call = accesService.postImage(body, name, 1);
 
         call.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> call, Response<ResponseBody> response) {
                 System.out.println(response.code());
-                if (response.code() != 500){
+                if (response.code() == 200){
                     if (callbacksWeakReference.get() != null){
                         callbacksWeakReference.get().onResponse(response.body());
                         Log.i("IMAGE ", "UPLOADED SUCCESFULLY");

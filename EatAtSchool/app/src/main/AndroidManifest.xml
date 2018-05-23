@@ -26,7 +26,8 @@
         android:roundIcon="@mipmap/burger_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".presentation.ChooseSchoolActivity" />
+        <activity android:name=".presentation.ChooseSchoolActivity"
+            android:screenOrientation="portrait"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,12 +38,15 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presentation.MapActivity"
-            android:label="@string/title_activity_map" />
-        <activity android:name=".presentation.MainActivity">
+            android:label="@string/title_activity_map"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".presentation.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,14 +55,17 @@
         </activity>
         <activity
             android:name=".presentation.AddSchool"
-            android:label="Ajouter une école" />
+            android:label="Ajouter une école"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presentation.AddRestaurant"
-            android:label="Ajouter un restaurant" />
+            android:label="Ajouter un restaurant"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presentation.LoginActivity"
             android:label="@string/title_activity_login"
-            android:parentActivityName=".presentation.MainActivity">
+            android:parentActivityName=".presentation.MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cfpt.com.eatatschool.presentation.MainActivity" />
